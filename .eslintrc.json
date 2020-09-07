@@ -19,6 +19,9 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "object-curly-newline":"off",
+    "no-useless-constructor": "off",
+    "camelcase": "off",
     "class-methods-use-this": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "prettier/prettier": "error",
