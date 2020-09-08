@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import IUsersRepository from '../repositories/IUsersRepository';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 import User from '../infra/typeorm/schemas/User';
 
@@ -16,6 +17,9 @@ class CreateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute({
@@ -24,10 +28,12 @@ class CreateUserService {
     password,
     whatsapp,
   }: IRequest): Promise<User> {
+    const hashedPassword = await this.hashProvider.generateHash(password);
+
     const user = await this.usersRepository.create({
       name,
       email,
-      password,
+      password: hashedPassword,
       whatsapp,
     });
 
