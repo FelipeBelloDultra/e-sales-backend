@@ -20,6 +20,7 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "arrow-parens": "off",
     "object-curly-newline":"off",
     "no-useless-constructor": "off",
     "camelcase": "off",

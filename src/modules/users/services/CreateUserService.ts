@@ -1,5 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
+import AppError from '@shared/errors/AppError';
+
 import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
@@ -28,6 +30,12 @@ class CreateUserService {
     password,
     whatsapp,
   }: IRequest): Promise<User> {
+    const findUserByEmail = await this.usersRepository.findByEmail(email);
+
+    if (findUserByEmail) {
+      throw new AppError('This email already used.');
+    }
+
     const hashedPassword = await this.hashProvider.generateHash(password);
 
     const user = await this.usersRepository.create({
