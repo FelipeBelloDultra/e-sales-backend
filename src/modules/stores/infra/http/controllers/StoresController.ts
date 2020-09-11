@@ -2,7 +2,10 @@ import { Request, Response } from 'express';
 
 class StoresController {
   public async create(request: Request, response: Response): Promise<Response> {
-    return response.json({ ok: true });
+    const { id } = request.user;
+    const { name, slug, number } = request.body;
+
+    return response.json({ id, name, slug, number });
   }
 }
 
