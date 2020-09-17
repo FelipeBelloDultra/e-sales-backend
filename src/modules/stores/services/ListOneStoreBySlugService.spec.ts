@@ -17,7 +17,7 @@ describe('ListStoreBySlug', () => {
     createStore = new CreateStoreService(fakeStoresRepository);
   });
 
-  it('should be able to list one store by slug', async () => {
+  it('should be able to list a store by slug', async () => {
     const user_id = faker.random.words();
     const slug = faker.random.word();
 
@@ -34,5 +34,17 @@ describe('ListStoreBySlug', () => {
     });
 
     expect(store).toHaveProperty('id');
+  });
+
+  it('should not be able to list a store by slug if store not found', async () => {
+    const user_id = faker.random.words();
+    const slug = faker.random.word();
+
+    await expect(
+      listOneStoreBySlug.execute({
+        user_id,
+        slug,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
