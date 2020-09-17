@@ -47,4 +47,22 @@ describe('ListStoreBySlug', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should be able to list a store by slug', async () => {
+    const slug = faker.random.word();
+
+    await createStore.execute({
+      user_id: faker.random.words(),
+      slug,
+      name: faker.name.findName(),
+      number: faker.phone.phoneNumber(),
+    });
+
+    await expect(
+      listOneStoreBySlug.execute({
+        user_id: faker.random.words(),
+        slug,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
