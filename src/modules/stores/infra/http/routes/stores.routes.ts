@@ -10,5 +10,6 @@ const storesController = new StoresController();
 storeRouter.use(ensureAuthenticated);
 
 storeRouter.post('/', storesController.create);
+storeRouter.get('/:slug', storesController.show);
 
 export default storeRouter;
