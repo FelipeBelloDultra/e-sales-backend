@@ -6,14 +6,14 @@ import CreateStoreService from './CreateStoreService';
 let fakeStoresRepository: FakeStoresRepository;
 let createStore: CreateStoreService;
 
-describe('CreateUser', () => {
+describe('CreateStore', () => {
   beforeEach(() => {
     fakeStoresRepository = new FakeStoresRepository();
 
     createStore = new CreateStoreService(fakeStoresRepository);
   });
 
-  it('should be able to create a new user', async () => {
+  it('should be able to create a new store', async () => {
     const user = await createStore.execute({
       user_id: faker.random.words(),
       name: faker.name.findName(),
