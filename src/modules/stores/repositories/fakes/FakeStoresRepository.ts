@@ -16,6 +16,12 @@ class StoreRepository implements IStoresRepository {
 
     return store;
   }
+
+  public async findBySlug(slug: string): Promise<Store | undefined> {
+    const findStore = this.stores.find(store => store.slug === slug);
+
+    return findStore;
+  }
 }
 
 export default StoreRepository;

@@ -17,7 +17,7 @@ interface IRequest {
 class CreateStoreService {
   constructor(
     @inject('StoresRepository')
-    private storesRepositoru: IStoresRepository,
+    private storesRepository: IStoresRepository,
   ) {}
 
   public async execute({
@@ -26,7 +26,13 @@ class CreateStoreService {
     slug,
     user_id,
   }: IRequest): Promise<Store> {
-    const store = await this.storesRepositoru.create({
+    const findStore = await this.storesRepository.findBySlug(slug);
+
+    if (findStore) {
+      throw new AppError('This slug already used.');
+    }
+
+    const store = await this.storesRepository.create({
       name,
       user_id,
       slug,
